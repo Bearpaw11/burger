@@ -1,0 +1,39 @@
+{{#each burgers}}
+{{#unless devoured}}
+<p>{{burger_name}}</p>
+<button class="eat" data-id={{id}}>EAT</button>
+{{/unless}}
+
+{{/each}}
+
+
+{{#each burgers}}
+{{#if devoured}}
+<p>{{burger_name}}</p>
+
+{{/if}}
+{{/each}}
+
+
+<form>
+
+
+</form>
+
+
+<script>
+
+$(".eat").on("click", function(){
+    let id = $(this).attr("data-id")
+    // ajax call with put to update the burger
+})
+
+$("#create").on("click", function(){
+// get the name of the burger form the input form
+// ajax call with post and the burgername to create the burger
+
+})
+
+
+
+</script>
