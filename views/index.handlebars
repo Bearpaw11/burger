@@ -1,28 +1,49 @@
-<div class="container">
+<nav class="header">
+  <div class="headerText">Hamburger App</div>
+</nav>
+
+
+
+
+<div class="main">
+
+<ul class= "left">
+    <h1>Burgers to EAT!!!!</h1>
+
 {{#each burgers}}
 {{#unless devoured}}
-<p>{{burger_name}}</p>
-<button class="eat" data-id={{id}}>EAT</button>
+<li class="each">{{burger_name}} &emsp; <button class="eat" data-id={{id}}>EAT ME</button></li>
 {{/unless}}
-
+</li>
 {{/each}}
+</ul>
+
+
+
+
+<div class = "middle">
+<img class ="pic" src="/assets/img/hamburger.jpeg" alt="Hamburger Pic">
+<br>
+<form>
+<div class="input-group mb-3">
+  <input type="text" class="form-control formWidth" placeholder="Create a New Burger" name ="Burger Name" id="newBurger" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="submit" id="submit">Create</button>
+  </div>
+</div>
 </div>
 
-<div class="container">
+<ul class="right">
+    <h1>Burgers EATEN!!!!</h1>
 {{#each burgers}}
 {{#if devoured}}
-<p>{{burger_name}}</p>
+<li class="each">{{burger_name}}&emsp; <button class="delete" data-id={{id}}>Delete</button></li>
 
 {{/if}}
 {{/each}}
+</ul>
+
 </div>
-
-<form>
-<input type="text" class="form-control" name ="Burger Name" id="newBurger">
-<button type="submit" id ="submit" class="btn btn-primary">Submit</button>
-</form>
-
-
 <script>
 
 $(function () {
@@ -69,8 +90,23 @@ $(function () {
                 }
             );
         });
-    });
+    
 
+ $(".delete").on("click", function(event) {
+    const id = $(this).data("id");
+
+    // Send the DELETE request.
+    $.ajax("/api/burgers/" + id, {
+      type: "DELETE"
+    }).then(
+      function() {
+        console.log("deleted burger", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+}); 
 
 
 </script>
